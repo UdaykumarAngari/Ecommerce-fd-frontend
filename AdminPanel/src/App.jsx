@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { Routes , Route } from 'react-router-dom'
+import ListFoods from './pages/ListFoods/ListFoods'
+import SideBar from './components/sidebar/SideBar'
+import MenuBar from './components/menubar/MenuBar'
+import AddFood from './pages/AddFood/AddFood'
+import Orders from './pages/Orders/Orders'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
+  const [sidebarVisible , setSidebarVisible] = React.useState(true);
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
+  }
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="d-flex" id="wrapper">
+
+            <SideBar sidebarVisible={sidebarVisible}/>
+            
+            {/* <!-- Page content wrapper--> */}
+            <div id="page-content-wrapper">
+                {/* <!-- Top navigation--> */}
+                <MenuBar toggleSidebar={toggleSidebar}/> 
+                
+                {/* <!-- Page content--> */}
+                <div className="container-fluid">
+                     <Routes>
+                        <Route path="/addfood" element={<AddFood />} />
+                        <Route path="/listfoods" element={<ListFoods />} />
+                        <Route path="/orders" element={<Orders />} />
+                        <Route path="/" element={<ListFoods />} />
+                     </Routes>
+                </div>
+            </div>
+        </div>
   )
 }
 
