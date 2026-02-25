@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { assets } from '../../assets/assets'
 import axios from 'axios';
+import { addFood } from '../../services/service';
+import { toast } from 'react-toastify';
 const AddFood = () => {
   const [image, setImage] = useState(false);
   const [foodData , setFoodData] = useState({ 
@@ -24,33 +26,22 @@ const AddFood = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if(!image){
-      alert('Please upload an image');
+      toast.error('Please upload an image');
       return;
     }
-    const formData = new FormData();
-    formData.append('food', JSON.stringify(foodData));
-    formData.append('file', image);
-    console.log(foodData);
-
+     
     try {
-      const response = await axios.post('http://localhost:8081/api/foods', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      if(response.status === 200){
-        alert('Food added successfully');
-        setFoodData({
-          name: '',
-          description: '',
-          category: 'Biryani',
-          price: ''
-        });
-        setImage(false);
-      }
-    } catch (error) {
-      console.log(error);
-      alert('Failed to add food');
+      await addFood(foodData, image);
+      toast.success('Food added successfully');
+      setFoodData({
+        name: '',
+        description: '',
+        category: 'Biryani',
+        price: ''
+      });
+      setImage(false);
+    } catch (error) { 
+      toast.error('Failed to add food');
     }
   }
 
