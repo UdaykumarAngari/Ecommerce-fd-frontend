@@ -62,12 +62,12 @@ const AddFood = () => {
 
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">Food Name</label>
-                <input type="text" className="form-control" id="name" name='name' onChange={onChangeHandler} value={foodData.name} required/>
+                <input type="text" className="form-control" placeholder="Veg Biryani" id="name" name='name' onChange={onChangeHandler} value={foodData.name} required/>
               </div>
 
               <div className="mb-3">
                 <label htmlFor="description" className="form-label">Description</label>
-                <input type="text" className="form-control" id="description" name='description' onChange={onChangeHandler} value={foodData.description} required/>
+                <input type="text" className="form-control" placeholder="Tasty Veg Biryani" id="description" name='description' onChange={onChangeHandler} value={foodData.description} required/>
               </div>
 
               <div className="mb-3">
